@@ -121,14 +121,14 @@ func (sc *ScriptCreate) SetManagerGroupId(i int) *ScriptCreate {
 }
 
 // SetStartTime sets the "startTime" field.
-func (sc *ScriptCreate) SetStartTime(t time.Time) *ScriptCreate {
-	sc.mutation.SetStartTime(t)
+func (sc *ScriptCreate) SetStartTime(s string) *ScriptCreate {
+	sc.mutation.SetStartTime(s)
 	return sc
 }
 
 // SetEndTime sets the "endTime" field.
-func (sc *ScriptCreate) SetEndTime(t time.Time) *ScriptCreate {
-	sc.mutation.SetEndTime(t)
+func (sc *ScriptCreate) SetEndTime(s string) *ScriptCreate {
+	sc.mutation.SetEndTime(s)
 	return sc
 }
 
@@ -322,11 +322,11 @@ func (sc *ScriptCreate) createSpec() (*Script, *sqlgraph.CreateSpec) {
 		_node.ManagerGroupId = value
 	}
 	if value, ok := sc.mutation.StartTime(); ok {
-		_spec.SetField(script.FieldStartTime, field.TypeTime, value)
+		_spec.SetField(script.FieldStartTime, field.TypeString, value)
 		_node.StartTime = value
 	}
 	if value, ok := sc.mutation.EndTime(); ok {
-		_spec.SetField(script.FieldEndTime, field.TypeTime, value)
+		_spec.SetField(script.FieldEndTime, field.TypeString, value)
 		_node.EndTime = value
 	}
 	return _node, _spec

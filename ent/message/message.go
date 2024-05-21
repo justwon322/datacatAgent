@@ -12,7 +12,7 @@ const (
 	// Label holds the string label denoting the message type in the database.
 	Label = "message"
 	// FieldID holds the string denoting the id field in the database.
-	FieldID = "pid"
+	FieldID = "id"
 	// FieldPayload holds the string denoting the payload field in the database.
 	FieldPayload = "payload"
 	// FieldSent holds the string denoting the sent field in the database.

@@ -46,9 +46,9 @@ type Script struct {
 	// ManagerGroupId holds the value of the "managerGroupId" field.
 	ManagerGroupId int `json:"managerGroupId,omitempty"`
 	// StartTime holds the value of the "startTime" field.
-	StartTime time.Time `json:"startTime,omitempty"`
+	StartTime string `json:"startTime,omitempty"`
 	// EndTime holds the value of the "endTime" field.
-	EndTime      time.Time `json:"endTime,omitempty"`
+	EndTime      string `json:"endTime,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -59,9 +59,9 @@ func (*Script) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case script.FieldID, script.FieldJobId, script.FieldUsable, script.FieldRepeatInterval, script.FieldUpdatedById, script.FieldCreatedById, script.FieldRegionId, script.FieldManagerId, script.FieldManagerGroupId:
 			values[i] = new(sql.NullInt64)
-		case script.FieldProgram, script.FieldHostname, script.FieldCommand, script.FieldComment:
+		case script.FieldProgram, script.FieldHostname, script.FieldCommand, script.FieldComment, script.FieldStartTime, script.FieldEndTime:
 			values[i] = new(sql.NullString)
-		case script.FieldUpdatedAt, script.FieldCreatedAt, script.FieldStartTime, script.FieldEndTime:
+		case script.FieldUpdatedAt, script.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -169,16 +169,16 @@ func (s *Script) assignValues(columns []string, values []any) error {
 				s.ManagerGroupId = int(value.Int64)
 			}
 		case script.FieldStartTime:
-			if value, ok := values[i].(*sql.NullTime); !ok {
+			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field startTime", values[i])
 			} else if value.Valid {
-				s.StartTime = value.Time
+				s.StartTime = value.String
 			}
 		case script.FieldEndTime:
-			if value, ok := values[i].(*sql.NullTime); !ok {
+			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field endTime", values[i])
 			} else if value.Valid {
-				s.EndTime = value.Time
+				s.EndTime = value.String
 			}
 		default:
 			s.selectValues.Set(columns[i], values[i])
@@ -259,10 +259,10 @@ func (s *Script) String() string {
 	builder.WriteString(fmt.Sprintf("%v", s.ManagerGroupId))
 	builder.WriteString(", ")
 	builder.WriteString("startTime=")
-	builder.WriteString(s.StartTime.Format(time.ANSIC))
+	builder.WriteString(s.StartTime)
 	builder.WriteString(", ")
 	builder.WriteString("endTime=")
-	builder.WriteString(s.EndTime.Format(time.ANSIC))
+	builder.WriteString(s.EndTime)
 	builder.WriteByte(')')
 	return builder.String()
 }

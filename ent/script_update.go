@@ -259,29 +259,29 @@ func (su *ScriptUpdate) AddManagerGroupId(i int) *ScriptUpdate {
 }
 
 // SetStartTime sets the "startTime" field.
-func (su *ScriptUpdate) SetStartTime(t time.Time) *ScriptUpdate {
-	su.mutation.SetStartTime(t)
+func (su *ScriptUpdate) SetStartTime(s string) *ScriptUpdate {
+	su.mutation.SetStartTime(s)
 	return su
 }
 
 // SetNillableStartTime sets the "startTime" field if the given value is not nil.
-func (su *ScriptUpdate) SetNillableStartTime(t *time.Time) *ScriptUpdate {
-	if t != nil {
-		su.SetStartTime(*t)
+func (su *ScriptUpdate) SetNillableStartTime(s *string) *ScriptUpdate {
+	if s != nil {
+		su.SetStartTime(*s)
 	}
 	return su
 }
 
 // SetEndTime sets the "endTime" field.
-func (su *ScriptUpdate) SetEndTime(t time.Time) *ScriptUpdate {
-	su.mutation.SetEndTime(t)
+func (su *ScriptUpdate) SetEndTime(s string) *ScriptUpdate {
+	su.mutation.SetEndTime(s)
 	return su
 }
 
 // SetNillableEndTime sets the "endTime" field if the given value is not nil.
-func (su *ScriptUpdate) SetNillableEndTime(t *time.Time) *ScriptUpdate {
-	if t != nil {
-		su.SetEndTime(*t)
+func (su *ScriptUpdate) SetNillableEndTime(s *string) *ScriptUpdate {
+	if s != nil {
+		su.SetEndTime(*s)
 	}
 	return su
 }
@@ -400,10 +400,10 @@ func (su *ScriptUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.AddField(script.FieldManagerGroupId, field.TypeInt, value)
 	}
 	if value, ok := su.mutation.StartTime(); ok {
-		_spec.SetField(script.FieldStartTime, field.TypeTime, value)
+		_spec.SetField(script.FieldStartTime, field.TypeString, value)
 	}
 	if value, ok := su.mutation.EndTime(); ok {
-		_spec.SetField(script.FieldEndTime, field.TypeTime, value)
+		_spec.SetField(script.FieldEndTime, field.TypeString, value)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, su.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -656,29 +656,29 @@ func (suo *ScriptUpdateOne) AddManagerGroupId(i int) *ScriptUpdateOne {
 }
 
 // SetStartTime sets the "startTime" field.
-func (suo *ScriptUpdateOne) SetStartTime(t time.Time) *ScriptUpdateOne {
-	suo.mutation.SetStartTime(t)
+func (suo *ScriptUpdateOne) SetStartTime(s string) *ScriptUpdateOne {
+	suo.mutation.SetStartTime(s)
 	return suo
 }
 
 // SetNillableStartTime sets the "startTime" field if the given value is not nil.
-func (suo *ScriptUpdateOne) SetNillableStartTime(t *time.Time) *ScriptUpdateOne {
-	if t != nil {
-		suo.SetStartTime(*t)
+func (suo *ScriptUpdateOne) SetNillableStartTime(s *string) *ScriptUpdateOne {
+	if s != nil {
+		suo.SetStartTime(*s)
 	}
 	return suo
 }
 
 // SetEndTime sets the "endTime" field.
-func (suo *ScriptUpdateOne) SetEndTime(t time.Time) *ScriptUpdateOne {
-	suo.mutation.SetEndTime(t)
+func (suo *ScriptUpdateOne) SetEndTime(s string) *ScriptUpdateOne {
+	suo.mutation.SetEndTime(s)
 	return suo
 }
 
 // SetNillableEndTime sets the "endTime" field if the given value is not nil.
-func (suo *ScriptUpdateOne) SetNillableEndTime(t *time.Time) *ScriptUpdateOne {
-	if t != nil {
-		suo.SetEndTime(*t)
+func (suo *ScriptUpdateOne) SetNillableEndTime(s *string) *ScriptUpdateOne {
+	if s != nil {
+		suo.SetEndTime(*s)
 	}
 	return suo
 }
@@ -827,10 +827,10 @@ func (suo *ScriptUpdateOne) sqlSave(ctx context.Context) (_node *Script, err err
 		_spec.AddField(script.FieldManagerGroupId, field.TypeInt, value)
 	}
 	if value, ok := suo.mutation.StartTime(); ok {
-		_spec.SetField(script.FieldStartTime, field.TypeTime, value)
+		_spec.SetField(script.FieldStartTime, field.TypeString, value)
 	}
 	if value, ok := suo.mutation.EndTime(); ok {
-		_spec.SetField(script.FieldEndTime, field.TypeTime, value)
+		_spec.SetField(script.FieldEndTime, field.TypeString, value)
 	}
 	_node = &Script{config: suo.config}
 	_spec.Assign = _node.assignValues

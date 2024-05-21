@@ -76,7 +76,7 @@ var (
 	}
 	// MessagesColumns holds the columns for the "messages" table.
 	MessagesColumns = []*schema.Column{
-		{Name: "pid", Type: field.TypeInt64, Increment: true},
+		{Name: "id", Type: field.TypeInt64, Increment: true},
 		{Name: "payload", Type: field.TypeString},
 		{Name: "sent", Type: field.TypeInt},
 		{Name: "resent", Type: field.TypeInt},
@@ -127,8 +127,8 @@ var (
 		{Name: "regionId", Type: field.TypeInt},
 		{Name: "managerId", Type: field.TypeInt},
 		{Name: "managerGroupId", Type: field.TypeInt},
-		{Name: "startTime", Type: field.TypeTime},
-		{Name: "endTime", Type: field.TypeTime},
+		{Name: "startTime", Type: field.TypeString},
+		{Name: "endTime", Type: field.TypeString},
 	}
 	// ScriptTable holds the schema information for the "script" table.
 	ScriptTable = &schema.Table{

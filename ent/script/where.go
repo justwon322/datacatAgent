@@ -125,12 +125,12 @@ func ManagerGroupId(v int) predicate.Script {
 }
 
 // StartTime applies equality check predicate on the "startTime" field. It's identical to StartTimeEQ.
-func StartTime(v time.Time) predicate.Script {
+func StartTime(v string) predicate.Script {
 	return predicate.Script(sql.FieldEQ(FieldStartTime, v))
 }
 
 // EndTime applies equality check predicate on the "endTime" field. It's identical to EndTimeEQ.
-func EndTime(v time.Time) predicate.Script {
+func EndTime(v string) predicate.Script {
 	return predicate.Script(sql.FieldEQ(FieldEndTime, v))
 }
 
@@ -795,83 +795,133 @@ func ManagerGroupIdLTE(v int) predicate.Script {
 }
 
 // StartTimeEQ applies the EQ predicate on the "startTime" field.
-func StartTimeEQ(v time.Time) predicate.Script {
+func StartTimeEQ(v string) predicate.Script {
 	return predicate.Script(sql.FieldEQ(FieldStartTime, v))
 }
 
 // StartTimeNEQ applies the NEQ predicate on the "startTime" field.
-func StartTimeNEQ(v time.Time) predicate.Script {
+func StartTimeNEQ(v string) predicate.Script {
 	return predicate.Script(sql.FieldNEQ(FieldStartTime, v))
 }
 
 // StartTimeIn applies the In predicate on the "startTime" field.
-func StartTimeIn(vs ...time.Time) predicate.Script {
+func StartTimeIn(vs ...string) predicate.Script {
 	return predicate.Script(sql.FieldIn(FieldStartTime, vs...))
 }
 
 // StartTimeNotIn applies the NotIn predicate on the "startTime" field.
-func StartTimeNotIn(vs ...time.Time) predicate.Script {
+func StartTimeNotIn(vs ...string) predicate.Script {
 	return predicate.Script(sql.FieldNotIn(FieldStartTime, vs...))
 }
 
 // StartTimeGT applies the GT predicate on the "startTime" field.
-func StartTimeGT(v time.Time) predicate.Script {
+func StartTimeGT(v string) predicate.Script {
 	return predicate.Script(sql.FieldGT(FieldStartTime, v))
 }
 
 // StartTimeGTE applies the GTE predicate on the "startTime" field.
-func StartTimeGTE(v time.Time) predicate.Script {
+func StartTimeGTE(v string) predicate.Script {
 	return predicate.Script(sql.FieldGTE(FieldStartTime, v))
 }
 
 // StartTimeLT applies the LT predicate on the "startTime" field.
-func StartTimeLT(v time.Time) predicate.Script {
+func StartTimeLT(v string) predicate.Script {
 	return predicate.Script(sql.FieldLT(FieldStartTime, v))
 }
 
 // StartTimeLTE applies the LTE predicate on the "startTime" field.
-func StartTimeLTE(v time.Time) predicate.Script {
+func StartTimeLTE(v string) predicate.Script {
 	return predicate.Script(sql.FieldLTE(FieldStartTime, v))
 }
 
+// StartTimeContains applies the Contains predicate on the "startTime" field.
+func StartTimeContains(v string) predicate.Script {
+	return predicate.Script(sql.FieldContains(FieldStartTime, v))
+}
+
+// StartTimeHasPrefix applies the HasPrefix predicate on the "startTime" field.
+func StartTimeHasPrefix(v string) predicate.Script {
+	return predicate.Script(sql.FieldHasPrefix(FieldStartTime, v))
+}
+
+// StartTimeHasSuffix applies the HasSuffix predicate on the "startTime" field.
+func StartTimeHasSuffix(v string) predicate.Script {
+	return predicate.Script(sql.FieldHasSuffix(FieldStartTime, v))
+}
+
+// StartTimeEqualFold applies the EqualFold predicate on the "startTime" field.
+func StartTimeEqualFold(v string) predicate.Script {
+	return predicate.Script(sql.FieldEqualFold(FieldStartTime, v))
+}
+
+// StartTimeContainsFold applies the ContainsFold predicate on the "startTime" field.
+func StartTimeContainsFold(v string) predicate.Script {
+	return predicate.Script(sql.FieldContainsFold(FieldStartTime, v))
+}
+
 // EndTimeEQ applies the EQ predicate on the "endTime" field.
-func EndTimeEQ(v time.Time) predicate.Script {
+func EndTimeEQ(v string) predicate.Script {
 	return predicate.Script(sql.FieldEQ(FieldEndTime, v))
 }
 
 // EndTimeNEQ applies the NEQ predicate on the "endTime" field.
-func EndTimeNEQ(v time.Time) predicate.Script {
+func EndTimeNEQ(v string) predicate.Script {
 	return predicate.Script(sql.FieldNEQ(FieldEndTime, v))
 }
 
 // EndTimeIn applies the In predicate on the "endTime" field.
-func EndTimeIn(vs ...time.Time) predicate.Script {
+func EndTimeIn(vs ...string) predicate.Script {
 	return predicate.Script(sql.FieldIn(FieldEndTime, vs...))
 }
 
 // EndTimeNotIn applies the NotIn predicate on the "endTime" field.
-func EndTimeNotIn(vs ...time.Time) predicate.Script {
+func EndTimeNotIn(vs ...string) predicate.Script {
 	return predicate.Script(sql.FieldNotIn(FieldEndTime, vs...))
 }
 
 // EndTimeGT applies the GT predicate on the "endTime" field.
-func EndTimeGT(v time.Time) predicate.Script {
+func EndTimeGT(v string) predicate.Script {
 	return predicate.Script(sql.FieldGT(FieldEndTime, v))
 }
 
 // EndTimeGTE applies the GTE predicate on the "endTime" field.
-func EndTimeGTE(v time.Time) predicate.Script {
+func EndTimeGTE(v string) predicate.Script {
 	return predicate.Script(sql.FieldGTE(FieldEndTime, v))
 }
 
 // EndTimeLT applies the LT predicate on the "endTime" field.
-func EndTimeLT(v time.Time) predicate.Script {
+func EndTimeLT(v string) predicate.Script {
 	return predicate.Script(sql.FieldLT(FieldEndTime, v))
 }
 
 // EndTimeLTE applies the LTE predicate on the "endTime" field.
-func EndTimeLTE(v time.Time) predicate.Script {
+func EndTimeLTE(v string) predicate.Script {
 	return predicate.Script(sql.FieldLTE(FieldEndTime, v))
+}
+
+// EndTimeContains applies the Contains predicate on the "endTime" field.
+func EndTimeContains(v string) predicate.Script {
+	return predicate.Script(sql.FieldContains(FieldEndTime, v))
+}
+
+// EndTimeHasPrefix applies the HasPrefix predicate on the "endTime" field.
+func EndTimeHasPrefix(v string) predicate.Script {
+	return predicate.Script(sql.FieldHasPrefix(FieldEndTime, v))
+}
+
+// EndTimeHasSuffix applies the HasSuffix predicate on the "endTime" field.
+func EndTimeHasSuffix(v string) predicate.Script {
+	return predicate.Script(sql.FieldHasSuffix(FieldEndTime, v))
+}
+
+// EndTimeEqualFold applies the EqualFold predicate on the "endTime" field.
+func EndTimeEqualFold(v string) predicate.Script {
+	return predicate.Script(sql.FieldEqualFold(FieldEndTime, v))
+}
+
+// EndTimeContainsFold applies the ContainsFold predicate on the "endTime" field.
+func EndTimeContainsFold(v string) predicate.Script {
+	return predicate.Script(sql.FieldContainsFold(FieldEndTime, v))
 }
 
 // And groups predicates with the AND operator between them.

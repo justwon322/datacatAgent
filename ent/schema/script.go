@@ -54,9 +54,9 @@ func (Script) Fields() []ent.Field {
 			StorageKey("managerId"),
 		field.Int("managerGroupId").
 			StorageKey("managerGroupId"),
-		field.Time("startTime").
+		field.String("startTime").
 			StorageKey("startTime"),
-		field.Time("endTime").
+		field.String("endTime").
 			StorageKey("endTime"),
 	}
 }

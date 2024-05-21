@@ -4590,8 +4590,8 @@ type ScriptMutation struct {
 	addmanagerId      *int
 	managerGroupId    *int
 	addmanagerGroupId *int
-	startTime         *time.Time
-	endTime           *time.Time
+	startTime         *string
+	endTime           *string
 	clearedFields     map[string]struct{}
 	done              bool
 	oldValue          func(context.Context) (*Script, error)
@@ -5367,12 +5367,12 @@ func (m *ScriptMutation) ResetManagerGroupId() {
 }
 
 // SetStartTime sets the "startTime" field.
-func (m *ScriptMutation) SetStartTime(t time.Time) {
-	m.startTime = &t
+func (m *ScriptMutation) SetStartTime(s string) {
+	m.startTime = &s
 }
 
 // StartTime returns the value of the "startTime" field in the mutation.
-func (m *ScriptMutation) StartTime() (r time.Time, exists bool) {
+func (m *ScriptMutation) StartTime() (r string, exists bool) {
 	v := m.startTime
 	if v == nil {
 		return
@@ -5383,7 +5383,7 @@ func (m *ScriptMutation) StartTime() (r time.Time, exists bool) {
 // OldStartTime returns the old "startTime" field's value of the Script entity.
 // If the Script object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ScriptMutation) OldStartTime(ctx context.Context) (v time.Time, err error) {
+func (m *ScriptMutation) OldStartTime(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStartTime is only allowed on UpdateOne operations")
 	}
@@ -5403,12 +5403,12 @@ func (m *ScriptMutation) ResetStartTime() {
 }
 
 // SetEndTime sets the "endTime" field.
-func (m *ScriptMutation) SetEndTime(t time.Time) {
-	m.endTime = &t
+func (m *ScriptMutation) SetEndTime(s string) {
+	m.endTime = &s
 }
 
 // EndTime returns the value of the "endTime" field in the mutation.
-func (m *ScriptMutation) EndTime() (r time.Time, exists bool) {
+func (m *ScriptMutation) EndTime() (r string, exists bool) {
 	v := m.endTime
 	if v == nil {
 		return
@@ -5419,7 +5419,7 @@ func (m *ScriptMutation) EndTime() (r time.Time, exists bool) {
 // OldEndTime returns the old "endTime" field's value of the Script entity.
 // If the Script object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ScriptMutation) OldEndTime(ctx context.Context) (v time.Time, err error) {
+func (m *ScriptMutation) OldEndTime(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldEndTime is only allowed on UpdateOne operations")
 	}
@@ -5710,14 +5710,14 @@ func (m *ScriptMutation) SetField(name string, value ent.Value) error {
 		m.SetManagerGroupId(v)
 		return nil
 	case script.FieldStartTime:
-		v, ok := value.(time.Time)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStartTime(v)
 		return nil
 	case script.FieldEndTime:
-		v, ok := value.(time.Time)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
