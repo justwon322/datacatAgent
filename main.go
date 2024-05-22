@@ -13,13 +13,12 @@ import (
 )
 
 func main() {
-	client, err := db.OpenDB() // db 패키지의 OpenDB 함수를 호출합니다
+	client, err := db.OpenDB()
 	if err != nil {
 		log.Fatalf("failed opening connection to database: %v", err)
 	}
 	defer client.Close()
 
-	//db.MigrateDB(client) // db 패키지의 MigrateDB 함수를 호출합니다
 	for true {
 		// usable이 1인 스크립트만 쿼리
 		scripts, err := client.Script.Query().
@@ -38,6 +37,6 @@ func main() {
 
 		wg.Wait() // 모든 고루틴이 완료될 때까지 대기
 		log.Println("All scripts executed")
-		time.Sleep(5 * 1000 * 60) // 5분에 한번씩 체크
+		time.Sleep(5 * time.Minute) // 5분에 한번씩 체크
 	}
 }
