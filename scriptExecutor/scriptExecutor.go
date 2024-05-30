@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"os/exec"
+	"runtime"
 	"strconv"
 	"strings"
 	"sync"
@@ -34,12 +35,21 @@ func SaveExecutionLog(client *ent.Client, scriptID int, status int, result strin
 func ExecuteScript(client *ent.Client, wg *sync.WaitGroup, scriptId int, command string, comment string) {
 	defer wg.Done() // 작업이 완료되면 WaitGroup의 카운터를 감소
 
+	// 쉘 명령어를 실행하기 위해 exec.CommandContext를 사용하여 컨텍스트 전달
+	var cmd *exec.Cmd
 	// 타임아웃 컨텍스트 생성 (60초)
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
 
-	// 쉘 명령어를 실행하기 위해 exec.CommandContext를 사용하여 컨텍스트 전달
-	cmd := exec.CommandContext(ctx, "/bin/sh", "-c", command)
+	switch runtime.GOOS {
+	case "windows":
+		cmd = exec.CommandContext(ctx, "powershell.exe", "-c", command)
+	case "linux":
+		cmd = exec.CommandContext(ctx, "/bin/sh", "-c", command)
+	default:
+		cmd = exec.CommandContext(ctx, "/bin/sh", "-c", command)
+	}
+
 	output, err := cmd.CombinedOutput()
 	status := 0
 	if ctx.Err() == context.DeadlineExceeded {
@@ -54,8 +64,9 @@ func ExecuteScript(client *ent.Client, wg *sync.WaitGroup, scriptId int, command
 		log.Printf("Error saving execution log for script ID %d: %v", scriptId, saveErr)
 	}
 
-	if status != 1 {
+	if status != 0 || string(output) != "0" {
 		log.Printf("Failed to execute script ID %d: %s", scriptId, string(output))
+		log.Printf("Failed to execute script ID(Error log) %d: %s", scriptId, err)
 		comment := strings.Replace(comment, " ", "_", -1)
 		baseURL := "http://localhost:8080/mailsend/" + strconv.Itoa(scriptId)
 
