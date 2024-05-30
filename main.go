@@ -6,6 +6,7 @@ import (
 	"datacatAgent/ent"
 	"datacatAgent/ent/executionlog"
 	"datacatAgent/ent/script"
+	scriptpkg "datacatAgent/scriptExecutor"
 	"log"
 	"sync"
 	"time"
@@ -38,8 +39,6 @@ func main() {
 		var wg sync.WaitGroup
 
 		for _, s := range scripts {
-			log.Println("---------------------------")
-			log.Println(s.ID)
 			logs, logErr := client.ExecutionLog.Query().
 				Where(executionlog.ScriptId(int(s.ID))).
 				Order(ent.Desc(executionlog.FieldExecutedAt)).
@@ -67,12 +66,7 @@ func main() {
 			var IsPast bool = IsTimeWithinNMinutes(lastExecuteAt, time.Duration(s.RepeatInterval))
 			if !IsPast { // 반복 주기를 지났을때만 실행
 				wg.Add(1) // 새로운 고루틴을 추가할 때마다 WaitGroup의 카운터를 증가
-
-				log.Println(lastExecuteAt)
-				log.Println(s.RepeatInterval)
-				log.Println(IsPast)
-				log.Println("---------------------------")
-				//go scriptpkg.ExecuteScript(client, &wg, int(s.ID), s.Command, s.Comment)
+				go scriptpkg.ExecuteScript(client, &wg, int(s.ID), s.Command, s.Comment)
 			}
 		}
 
