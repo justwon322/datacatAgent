@@ -4,6 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
+	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"time"
 )
@@ -39,5 +40,10 @@ func (ExecutionLog) Fields() []ent.Field {
 
 // Edges of the ExecutionLog.
 func (ExecutionLog) Edges() []ent.Edge {
-	return nil
+	return []ent.Edge{
+		edge.From("script", Script.Type).
+			Ref("logs").
+			Unique().
+			Field("scriptId"),
+	}
 }
