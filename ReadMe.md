@@ -21,6 +21,10 @@ dependency는 go.mod 참조,
 
 ## 설치(빌드) 방법
 build.sh 실행시 루트폴더 하위에 datacatAgent.exe 생성됨(윈도우일경우)
+아니면 루트폴더에서 아래 명령어 실행해도 동일하게 바이너리 파일 생성됨
+```shell
+go build
+```
 
 ## 실행 방법
 datacatAgent.exe를 더블클릭하여 실행해도 되고 </br>
