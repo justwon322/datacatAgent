@@ -1,5 +1,11 @@
 package db
 
+/**
+1. author : 유용원
+2. 주요 기능 (순서대로)
+2-1). '.env' 파일에 입력되어 있는 DB 설정 정보 바인딩
+2-2). db 커넥션 맺음
+**/
 import (
 	"context"
 	"fmt"
@@ -7,6 +13,7 @@ import (
 	"os"
 
 	"datacatAgent/ent"
+
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	_ "github.com/go-sql-driver/mysql" // MySQL 드라이버
