@@ -1,6 +1,18 @@
 // script/execution.go
 package script
 
+/**
+1. author : 유용원
+2. 주요 기능 (순서대로)
+2-1). 입력 받은 스크립트 실행전, 어떤 OS에서 동작해야 할지 판단
+	2-1-1). Windows 인지 linux 인지에 따라 각각 powershell or /bin/sh 로 나뉘어 입력받은 스크립트를 실행
+2-2). 실행 결과는 총 3가지로 구분함 (정상, 오류, timeout(3분))
+	2-2-1). 정상일시
+		SaveExecutionLog 함수 호출하여 실행 결과 저장 (단 result는 최대 255자 이므로 임의로 254바이트 까지 끊어서 저장시킴)
+	2-2-2). 비정상일시 (오류 + timeout)
+		SaveExecutionLog 함수 호출하여 실행 결과 저장 (단 result는 최대 255자 이므로 임의로 254바이트 까지 끊어서 저장시킴)
+		http://localhost:8080/mailsend/{scriptId}?q={comment} 로 메일서버를 GET 방식으로 http 통해 호출
+**/
 import (
 	"context"
 	"fmt"
@@ -48,7 +60,7 @@ func trimToMaxBytes(b []byte, maxBytes int) []byte {
 }
 
 func ExecuteScript(client *ent.Client, wg *sync.WaitGroup, scriptId int, command string, comment string) {
-	defer wg.Done() // 작업이 완료되면 WaitGroup의 카운터를 감소
+	defer wg.Done() // 작업이 완료되면 WaitGroup의 카운터를 감소 (defer 문은 프로그램 종료시 무조건 실행되는 구문임)
 
 	// 쉘 명령어를 실행하기 위해 exec.CommandContext를 사용하여 컨텍스트 전달
 	var cmd *exec.Cmd
