@@ -10,7 +10,7 @@ package main
 		2-2-1-1). 최종 실행 시간(lastExecuteAt) 변수의 시간 부분과 시작시간~종료시간 을 비교 하여 실행 여부 판단
 	2-2-2). 이력 미 존재시 최종 실행 시간(lastExecuteAt) 변수를 1900.01.01 로 저장
 2-3) 실행 주기를 판단하여 실행 여부 최종 확인
-2-4) scriptExcutor 호출하여 스크립트 실행
+2-4) scriptExecutor 호출하여 스크립트 실행
 **/
 
 import (
