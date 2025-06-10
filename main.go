@@ -61,11 +61,11 @@ func IsTimeWithinStartNEndTime(start string, end string) bool {
 	}
 	startTime, startDateErr := time.ParseInLocation(layout, comparableStartDate, location)
 	if startDateErr != nil {
-		log.Fatalf("Failed to Parse startDate: %v", err)
+		log.Fatalf("Failed to Parse startDate: %v", startDateErr)
 	}
 	endTime, endDateErr := time.ParseInLocation(layout, comparableEndDate, location)
 	if endDateErr != nil {
-		log.Fatalf("Failed to Parse endDateErr: %v", err)
+		log.Fatalf("Failed to Parse endDateErr: %v", endDateErr)
 	}
 
 	return now.After(startTime) && now.Before(endTime) //
@@ -97,7 +97,7 @@ func main() {
 				All(ctx)
 
 			if logErr != nil {
-				log.Fatalf("failed querying execution logs: %v", err)
+				log.Fatalf("failed querying execution logs: %v", logErr)
 			}
 			var lastExecuteAt time.Time //최종 실행 시간 변수 선언 (time형)
 			// 실행 이력 없는경우 불러오는 값이 없으므로 에러발생함 (index out of bound)
